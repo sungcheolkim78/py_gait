@@ -1,7 +1,7 @@
 '''
 cohort.py - Utility object to process patient cohort
 
-autho: Sung-Cheol Kim @ IBM T.J. Watson
+autho: Sung-Cheol Kim 
 
 version:
     1.0.0 - 2020/05/19 - initial version
@@ -41,6 +41,13 @@ class COHORT:
         self.check_clinical_db = False
 
     def _add_clinical_data(self, df, score_list:list=None) -> None:
+        """_add_clinical_data.
+
+        :param df: panda dataframe with clinical data column
+        :param score_list: name of clinical tests
+        :type score_list: list
+        :rtype: None
+        """
 
         if score_list is None:
             score_list = ['TUG']

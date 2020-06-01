@@ -1,7 +1,7 @@
 '''
-py_gait.py - gait pattern recognizer
+py_gait.py - gait pattern analyzer
 
-author: Sung-Cheol Kim @ IBM
+author: Sung-Cheol Kim 
 
 version:
     - 1.0.0 - 2020/04/13

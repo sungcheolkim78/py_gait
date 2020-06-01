@@ -1,13 +1,13 @@
 # py_gait: Gait pattern analysis python library
 
-library for anlaysis of the walk pattern from relavent signals (3D accelerometer, Mobile phone and etc.)
+library for tools of the walk pattern from relavent signals (3D accelerometer, Mobile phone and etc.)
 
 ## Installation
 
 Download or clone this repository
 
 ```{bash}
-> git clone git@github.com:sungcheolkim78/py_auc.git
+> git clone git@github.com:sungcheolkim78/py_gait.git
 ```
 
 Install libary locally
