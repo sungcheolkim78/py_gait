@@ -18,7 +18,7 @@ import h5py
 
 from numba.typed import List
 from typing import Any, Dict
-from nptyping import Array
+from nptyping import NDArray
 
 from wfdb import processing
 from wfdb import rdsamp
@@ -546,7 +546,7 @@ class GAIT:
             fig.savefig(fname, dpi=300)
             print('... save to {}'.format(fname))
 
-    def _get_bout(self, source:Array[float], pos:int = 0, walk:bool = False) -> Array[float]:
+    def _get_bout(self, source:NDArray[float], pos:int = 0, walk:bool = False) -> NDArray[float]:
         """_get_bout. obtain specific signals from bout
 
         :param source: source signal
@@ -669,7 +669,7 @@ class GAIT:
             self.fields[key] = item
             return item
 
-    def load_ltmm_data(self, tag:str, channels:Any=None, base_dir:str='physionet.org/files/ltmm/1.0.0', update:bool = False) -> (Array, Dict):
+    def load_ltmm_data(self, tag:str, channels:Any=None, base_dir:str='physionet.org/files/ltmm/1.0.0', update:bool = False) -> (NDArray, Dict):
         """load_ltmm_data. read signal information from physionet database (locally stored)
 
         :param tag: name of patient used for find file
@@ -680,7 +680,7 @@ class GAIT:
         :type base_dir: str
         :param update: decide to read from h5 file
         :type update: bool
-        :rtype: (Array, Dict) signal numpy array and field dictionary
+        :rtype: (NDArray, Dict) signal numpy array and field dictionary
         """
 
         if tag.find('base') > -1:
@@ -722,7 +722,7 @@ class GAIT:
 
         return signals, fields
 
-    def load_pain_data(self, tag:str, channels:Any=None, base_dir:str='.', update:bool=False) -> (Array, Dict):
+    def load_pain_data(self, tag:str, channels:Any=None, base_dir:str='.', update:bool=False) -> (NDArray, Dict):
         """load_pain_data.
 
         :param tag: tag name and directory name
@@ -733,7 +733,7 @@ class GAIT:
         :type base_dir: str
         :param update: used for converting and loading from h5 file
         :type update: bool
-        :rtype: (Array, Dict)
+        :rtype: (NDArray, Dict)
         """
 
         filename = base_dir + '/' + tag + '/EDA/ACC'
@@ -761,7 +761,7 @@ class GAIT:
 
         return signals, fields
 
-    def to_h5(self, signals: Array[float] = None, fields: Dict = None, fname:str=None) -> None:
+    def to_h5(self, signals: NDArray[float] = None, fields: Dict = None, fname:str=None) -> None:
         """to_h5. save signal and fields to h5 file
 
         :param signals: numpy array of signals
@@ -789,12 +789,12 @@ class GAIT:
             ds.attrs[str(k)] = i
         hf.close()
 
-    def from_h5(self, fname:str=None) -> (Array, Dict):
+    def from_h5(self, fname:str=None) -> (NDArray, Dict):
         """from_h5. load signal and meta info fields from h5 file
 
         :param fname: file name
         :type fname: str
-        :rtype: (Array, Dict) -> signal numpy array and meta information dictionary
+        :rtype: (NDArray, Dict) -> signal numpy array and meta information dictionary
         """
 
         if fname is None: fname = self.h5_fname

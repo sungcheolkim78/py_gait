@@ -4,18 +4,18 @@
 
 import numpy as np
 
-from nptyping import Array
+from nptyping import NDArray
 from numba import njit
 from numba.typed import List
 
 from wfdb import processing
 
-def calibration_gravity_parameters(signals:Array) -> Array:
+def calibration_gravity_parameters(signals:NDArray) -> NDArray:
     """calibration_gravity_parameters.
 
     :param signals:
-    :type signals: Array
-    :rtype: Array
+    :type signals: NDArray
+    :rtype: NDArray
     """
 
     n = signals.shape[0]    # row number of 2D array
@@ -88,11 +88,11 @@ def check_walk_autocorrelation(signal, detection_window_len:int=400, detection_w
 
 
 @njit(fastmath=True, cache=True)
-def serial_corr(wave: Array[float], lag:int = 1) -> float:
+def serial_corr(wave: NDArray[float], lag:int = 1) -> float:
     """serial_corr. calculate numpy based autocorrelation
 
     :param wave: 1D numpy array for signal wave
-    :type wave: Array[float]
+    :type wave: NDArray[float]
     :param lag: lag time
     :type lag: int
     :rtype: float
@@ -104,11 +104,11 @@ def serial_corr(wave: Array[float], lag:int = 1) -> float:
 
 
 @njit(fastmath=True, cache=True)
-def normalized_auto_corr(wave: Array[float], lag:int = 1) -> float:
+def normalized_auto_corr(wave: NDArray[float], lag:int = 1) -> float:
     """normalized_auto_corr. calculate normalized autocorrelation
 
     :param wave: 1D numpy array for signal wave
-    :type wave: Array[float]
+    :type wave: NDArray[float]
     :param lag: lag time
     :type lag: int
     :rtype: float
@@ -172,11 +172,11 @@ def find_long_period(bool_array: List, min_duration:int, scale:int) -> List:
 
 
 @njit(fastmath=True, cache=True)
-def SC_method_slope(signal: Array[float], slope_ratio_threshold:float=0.6, search_window_ratio:float=0.6, initial_duration:int=30, direction='down') -> (List, List, List):
+def SC_method_slope(signal: NDArray[float], slope_ratio_threshold:float=0.6, search_window_ratio:float=0.6, initial_duration:int=30, direction='down') -> (List, List, List):
     """SC_method_slope. Step count method based on slope cross over counting
 
     :param signal: 1D numpy array
-    :type signal: Array[float]
+    :type signal: NDArray[float]
     :param slope_ratio_threshold: ratio between maximum height within one step and current height from minimum winthin step
     :type slope_ratio_threshold: float
     :param search_window_ratio: window size ratio compared to previous step duration
@@ -252,7 +252,7 @@ def SC_method_slope(signal: Array[float], slope_ratio_threshold:float=0.6, searc
     return step_pos, slope_list, ptp_list[1:], dur_list[1:]
 
 
-def SC_method_localpeak(signal: Array[float], peak_window:int=50, mean_average_window:int=30, direction:str='down') -> (List, List, List):
+def SC_method_localpeak(signal: NDArray[float], peak_window:int=50, mean_average_window:int=30, direction:str='down') -> (List, List, List):
 
     hard_peaks = processing.find_local_peaks(signal, peak_window)
     correct_peaks = processing.correct_peaks(signal, hard_peaks, peak_window, mean_average_window, peak_dir=direction)
@@ -269,7 +269,7 @@ def SC_method_localpeak(signal: Array[float], peak_window:int=50, mean_average_w
     return correct_peaks, ptplist, durlist
 
 
-def SC_method_QRS(signal: Array[float], conf, fs=100) -> (List, List, List):
+def SC_method_QRS(signal: NDArray[float], conf, fs=100) -> (List, List, List):
 
     xqrs = processing.XQRS(sig=signal, fs=fs, conf=conf)
     xqrs.detect(verbose=False)
