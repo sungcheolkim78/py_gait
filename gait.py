@@ -311,7 +311,7 @@ class GAIT:
         self.step_dur_list = []
 
         # prepare parameters
-        QRS_HR = 60./self._getfields('QRS_SD')          # Initial Step Duration
+        QRS_HR = 60./self._getfields('QRS_SD')      # Initial Step Duration
         conf = processing.XQRS.Conf(hr_init=QRS_HR, hr_max=180, hr_min=60, qrs_width=0.5)
 
         # run for each walks
@@ -413,11 +413,12 @@ class GAIT:
         return self.walkdb
 
     def view_walks(self, varname:str='duration', walk_range:list=None):
-        """bout_plot2D.
+        """ bout_plot2D
 
         :param str:
         :type str: varname
         """
+        
         """ box plot of varname over different bouts """
 
         if not varname in self.stepdb.columns:
